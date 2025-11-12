@@ -2,7 +2,14 @@
 
 import { Resend } from 'resend';
 
-const resend = new Resend(process.env.RESEND_API_KEY);
+// Initialize Resend only when needed, and only if API key is provided
+function getResendClient() {
+  const apiKey = process.env.RESEND_API_KEY;
+  if (!apiKey) {
+    return null;
+  }
+  return new Resend(apiKey);
+}
 
 interface ContactFormData {
   firstName: string;
@@ -31,6 +38,16 @@ export async function sendContactEmail(formData: ContactFormData) {
       return {
         success: false,
         error: "Please enter a valid email address"
+      };
+    }
+
+    // Check if Resend is configured
+    const resend = getResendClient();
+    if (!resend) {
+      console.error('Resend API key is not configured. Email functionality is disabled.');
+      return {
+        success: false,
+        error: "Email service is not configured. Please contact the administrator."
       };
     }
     
