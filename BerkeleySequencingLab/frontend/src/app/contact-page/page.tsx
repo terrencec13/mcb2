@@ -1,22 +1,6 @@
 "use client";
 
 import React, { JSX, useState } from "react";
-import {
-  Box,
-  Button,
-  Container,
-  Divider,
-  Flex,
-  FormControl,
-  Heading,
-  Input,
-  Stack,
-  Text,
-  VStack,
-  Icon,
-  useToast,
-} from "@chakra-ui/react";
-import { FiUpload } from "react-icons/fi";
 
 export default function ContactPage({
   formData,
@@ -26,371 +10,237 @@ export default function ContactPage({
   setFormData: React.Dispatch<React.SetStateAction<any>>;
 }): JSX.Element {
   const [file, setFile] = useState<File | null>(null);
-  const [isDragging, setIsDragging] = useState(false);
-  const toast = useToast();
-
+  const [organization, setOrganization] = useState("UC Affiliated");
 
   const handleFileChange = (event: React.ChangeEvent<HTMLInputElement>) => {
     const selectedFile = event.target.files?.[0];
     if (selectedFile) {
       setFile(selectedFile);
-      toast({
-        title: "File uploaded",
-        description: selectedFile.name,
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
     }
   };
 
   const handleDragOver = (event: React.DragEvent) => {
     event.preventDefault();
-    setIsDragging(true);
   };
 
   const handleDragLeave = (event: React.DragEvent) => {
     event.preventDefault();
-    setIsDragging(false);
   };
 
   const handleDrop = (event: React.DragEvent) => {
     event.preventDefault();
-    setIsDragging(false);
     const droppedFile = event.dataTransfer.files?.[0];
     if (droppedFile) {
       setFile(droppedFile);
-      toast({
-        title: "File uploaded",
-        description: droppedFile.name,
-        status: "success",
-        duration: 3000,
-        isClosable: true,
-      });
     }
   };
 
   return (
-    <Box w="100%" minH="100vh">
-      <Container maxW="957px" py={0}>
-        <Box w="800px" mx="auto" mt="65px" mb="45px">
-          <VStack spacing={10} align="stretch">
-            {/* Contact Information */}
-            <Box>
-              <Heading color="gray-800" mb={6} fontSize="21px" fontWeight="bold">
-                Contact Information
-              </Heading>
-              <Button
-                alignSelf="flex-right"
-                bg="#3182CE"
-                color="white"
-                borderRadius="8px"
-                px={6}
-                py={2}
-                fontWeight="semibold"
-                fontSize="sm"
-                _hover={{ bg: "#2B6CB0" }}
-                onClick={() => {
-                  setFormData((prev: any) => ({
-                    ...prev,
-                    firstName: "Jane",
-                    lastName: "Doe",
-                    email: "jane.doe@example.com",
-                    phone: "123-456-7890",
-                    streetAddress: "123 Campus Drive",
-                    city: "Berkeley",
-                    state: "CA",
-                    zipCode: "94720",
-                    department: "Molecular Cell Biology",
-                    pi: "Dr. Smith",
-                    chartstring: "1234-5678-9012",
-                  }));
-                  toast({
-                    title: "Form autofilled",
-                    description: "Your information was filled from the last order.",
-                    status: "info",
-                    duration: 3000,
-                    isClosable: true,
-                  });
-                }}
-              >
-                Auto fill from last order (mock)
-              </Button>
-              <Stack spacing={6}>
-                <Flex gap={6}>
-                  <FormControl flex={1}>
-                    <Input
-                      placeholder="First Name"
-                      value={formData.firstName}
-                      onChange={(e) =>
-                        setFormData((prev: any) => ({ ...prev, firstName: e.target.value }))
-                      }
-                      bg="white"
-                      border="1px solid gray"
-                      borderRadius="8px"
-                      h="48px"
-                      px={6}
-                      w="100%"
-                      _placeholder={{ color: '#A0AEC0' }}
-                      _hover={{ borderColor: '#CBD5E0' }}
-                      _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                    />
-                  </FormControl>
-                  <FormControl flex={1}>
-                    <Input
-                      placeholder="Last Name"
-                      value={formData.lastName}
-                      onChange={(e) =>
-                        setFormData((prev: any) => ({ ...prev, lastName: e.target.value }))
-                      }
-                      bg="white"
-                      border="1px solid gray"
-                      borderRadius="8px"
-                      h="48px"
-                      px={6}
-                      w="100%"
-                      _placeholder={{ color: '#A0AEC0' }}
-                      _hover={{ borderColor: '#CBD5E0' }}
-                      _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                    />
-                  </FormControl>
-                </Flex>
-                <FormControl>
-                  <Input
-                    placeholder="Email Address"
-                    value={formData.email}
-                    onChange={(e) =>
-                      setFormData((prev: any) => ({ ...prev, email: e.target.value }))
-                    }
-                    bg="white"
-                    border="1px solid gray"
-                    borderRadius="8px"
-                    h="48px"
-                    px={6}
-                    w="100%"
-                    _placeholder={{ color: '#A0AEC0' }}
-                    _hover={{ borderColor: '#CBD5E0' }}
-                    _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                  />
-                </FormControl>
-                <FormControl>
-                  <Input
-                    placeholder="Phone Number"
-                    value={formData.phone}
-                    onChange={(e) =>
-                      setFormData((prev: any) => ({ ...prev, phone: e.target.value }))
-                    }
-                    bg="white"
-                    border="1px solid gray"
-                    borderRadius="8px"
-                    h="48px"
-                    px={6}
-                    w="100%"
-                    _placeholder={{ color: '#A0AEC0' }}
-                    _hover={{ borderColor: '#CBD5E0' }}
-                    _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                  />
-                </FormControl>
-              </Stack>
-            </Box>
+    <div className="w-full max-w-5xl mx-auto p-8">
+      <div className="space-y-10">
+        {/* Contact Information */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-800 mb-6">Contact Information</h2>
+          <div className="space-y-6">
+            <div className="flex gap-6">
+              <input
+                type="text"
+                placeholder="First Name"
+                value={formData.firstName}
+                onChange={(e) =>
+                  setFormData((prev: any) => ({ ...prev, firstName: e.target.value }))
+                }
+                className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+              />
+              <input
+                type="text"
+                placeholder="Last Name"
+                value={formData.lastName}
+                onChange={(e) =>
+                  setFormData((prev: any) => ({ ...prev, lastName: e.target.value }))
+                }
+                className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+              />
+            </div>
+            <input
+              type="email"
+              placeholder="Email Address"
+              value={formData.email}
+              onChange={(e) =>
+                setFormData((prev: any) => ({ ...prev, email: e.target.value }))
+              }
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+            />
+            <input
+              type="tel"
+              placeholder="Phone Number"
+              value={formData.phone}
+              onChange={(e) =>
+                setFormData((prev: any) => ({ ...prev, phone: e.target.value }))
+              }
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+            />
+          </div>
+        </div>
 
-            {/* Mailing Address */}
-            <Box>
-              <Heading color="#gray-800" mb={6} fontSize="21px" fontWeight="bold">
-                Mailing Address
-              </Heading>
-              <Stack spacing={6}>
-                <FormControl>
-                  <Input
-                    placeholder="Street Address"
-                    value={formData.streetAddress}
-                    onChange={(e) =>
-                      setFormData((prev: any) => ({ ...prev, streetAddress: e.target.value }))
-                    }
-                    bg="white"
-                    border="1px solid gray"
-                    borderRadius="8px"
-                    h="48px"
-                    px={6}
-                    w="100%"
-                    _placeholder={{ color: '#A0AEC0' }}
-                    _hover={{ borderColor: '#CBD5E0' }}
-                    _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                  />
-                </FormControl>
-                <Flex gap={6}>
-                  <FormControl flex={1}>
-                    <Input
-                      placeholder="City"
-                      value={formData.city}
-                      onChange={(e) =>
-                        setFormData((prev: any) => ({ ...prev, city: e.target.value }))
-                      }
-                      bg="white"
-                      border="1px solid gray"
-                      borderRadius="8px"
-                      h="48px"
-                      px={6}
-                      w="100%"
-                      _placeholder={{ color: '#A0AEC0' }}
-                      _hover={{ borderColor: '#CBD5E0' }}
-                      _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                    />
-                  </FormControl>
-                  <FormControl flex={1}>
-                    <Input
-                      placeholder="State"
-                      value={formData.state}
-                      onChange={(e) =>
-                        setFormData((prev: any) => ({ ...prev, state: e.target.value }))
-                      }
-                      bg="white"
-                      border="1px solid gray"
-                      borderRadius="8px"
-                      h="48px"
-                      px={6}
-                      w="100%"
-                      _placeholder={{ color: '#A0AEC0' }}
-                      _hover={{ borderColor: '#CBD5E0' }}
-                      _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                    />
-                  </FormControl>
-                  <FormControl flex={1}>
-                    <Input
-                      placeholder="Zip Code"
-                      value={formData.zipCode}
-                      onChange={(e) =>
-                        setFormData((prev: any) => ({ ...prev, zipCode: e.target.value }))
-                      }
-                      bg="white"
-                      border="1px solid gray"
-                      borderRadius="8px"
-                      h="48px"
-                      px={6}
-                      w="100%"
-                      _placeholder={{ color: '#A0AEC0' }}
-                      _hover={{ borderColor: '#CBD5E0' }}
-                      _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                    />
-                  </FormControl>
-                </Flex>
-              </Stack>
-            </Box>
+        {/* Mailing Address */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-800 mb-6">Mailing Address</h2>
+          <div className="space-y-6">
+            <input
+              type="text"
+              placeholder="Street Address"
+              value={formData.streetAddress}
+              onChange={(e) =>
+                setFormData((prev: any) => ({ ...prev, streetAddress: e.target.value }))
+              }
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+            />
+            <div className="flex gap-6">
+              <input
+                type="text"
+                placeholder="City"
+                value={formData.city}
+                onChange={(e) =>
+                  setFormData((prev: any) => ({ ...prev, city: e.target.value }))
+                }
+                className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+              />
+              <input
+                type="text"
+                placeholder="State"
+                value={formData.state}
+                onChange={(e) =>
+                  setFormData((prev: any) => ({ ...prev, state: e.target.value }))
+                }
+                className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+              />
+              <input
+                type="text"
+                placeholder="Zip Code"
+                value={formData.zipCode}
+                onChange={(e) =>
+                  setFormData((prev: any) => ({ ...prev, zipCode: e.target.value }))
+                }
+                className="flex-1 p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+              />
+            </div>
+          </div>
+        </div>
 
-            {/* Additional Information */}
-            <Box>
-              <Heading color="#gray-800" mb={6} fontSize="21px" fontWeight="bold">
-                Additional Information
-              </Heading>
-              <Stack spacing={6}>
-                <FormControl>
-                  <Input
-                    placeholder="UC Department or Off-Campus Organization"
-                    value={formData.department}
-                    onChange={(e) =>
-                      setFormData((prev: any) => ({ ...prev, department: e.target.value }))
-                    }
-                    bg="white"
-                    border="1px solid gray"
-                    borderRadius="8px"
-                    h="48px"
-                    px={6}
-                    w="100%"
-                    _placeholder={{ color: '#A0AEC0' }}
-                    _hover={{ borderColor: '#CBD5E0' }}
-                    _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                  />
-                </FormControl>
-                <FormControl>
-                  <Input
-                    placeholder="Principal Investigator"
-                    value={formData.pi}
-                    onChange={(e) =>
-                      setFormData((prev: any) => ({ ...prev, pi: e.target.value }))
-                    }
-                    bg="white"
-                    border="1px solid gray"
-                    borderRadius="8px"
-                    h="48px"
-                    px={6}
-                    w="100%"
-                    _placeholder={{ color: '#A0AEC0' }}
-                    _hover={{ borderColor: '#CBD5E0' }}
-                    _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                  />
-                </FormControl>
-                <FormControl>
-                  <Input
-                    placeholder="Chartstring"
-                    value={formData.chartstring}
-                    onChange={(e) =>
-                      setFormData((prev: any) => ({ ...prev, chartstring: e.target.value }))
-                    }
-                    bg="white"
-                    border="1px solid gray"
-                    borderRadius="8px"
-                    h="48px"
-                    w="100%"
-                    px={6}
-                    _placeholder={{ color: '#A0AEC0' }}
-                    _hover={{ borderColor: '#CBD5E0' }}
-                    _focus={{ borderColor: '#3182CE', boxShadow: 'none' }}
-                  />
-                </FormControl>
-
-                <Flex align="center" gap={3}>
-                  <Divider flex={1} borderColor="#E2E8F0" />
-                  <Text margin={10} color="#4B4B4B">OR</Text>
-                  <Divider flex={1} borderColor="#E2E8F0" />
-                </Flex>
-
-                <Flex justify="space-between" align="start">
-                  <Box w="324px">
-                    <Heading color="#gray-800" fontSize="21px" fontWeight="bold" mb={1}>
-                      Attach a PO
-                    </Heading>
-                    <Text color="#gray-800" fontSize="17px" fontStyle="italic">
-                      Upload your purchase order file
-                    </Text>
-                  </Box>
-                  <Box
-                    as="label"
-                    w="350px"
-                    h="120px"
-                    border="1px solid #E2E8F0"
-                    borderRadius="8px"
-                    display="flex"
-                    flexDirection="column"
-                    alignItems="center"
-                    justifyContent="center"
-                    gap={2}
-                    bg={isDragging ? '#EDF2F7' : '#F7FAFC'}
-                    _hover={{ borderColor: '#CBD5E0', bg: '#EDF2F7' }}
-                    cursor="pointer"
-                    onDragOver={handleDragOver}
-                    onDragLeave={handleDragLeave}
-                    onDrop={handleDrop}
-
+        {/* Additional Information */}
+        <div>
+          <h2 className="text-xl font-bold text-gray-800 mb-6">Additional Information</h2>
+          <div className="space-y-6">
+            <div>
+              <label className="block text-sm font-medium mb-3">Organization:</label>
+              <div className="flex gap-4">
+                {["UC Affiliated", "Off-Campus"].map((option) => (
+                  <label
+                    key={option}
+                    className={`inline-flex items-center space-x-2 cursor-pointer border rounded-lg px-4 py-2 transition ${
+                      organization === option
+                        ? "border-gray-300 bg-gray-50"
+                        : "border-gray-300"
+                    } hover:border-gray-400`}
                   >
                     <input
-                      type="file"
-                      onChange={handleFileChange}
-                      style={{ display: 'none' }}
-                      accept=".pdf,.doc,.docx"
+                      type="radio"
+                      name="organization"
+                      value={option}
+                      checked={organization === option}
+                      onChange={(e) => {
+                        setOrganization(e.target.value);
+                        setFormData((prev: any) => ({ ...prev, organization: e.target.value }));
+                      }}
+                      className="w-4 h-4"
                     />
-                    <Icon as={FiUpload} w={6} h={6} color="#4A5568" />
-                    <Text color="#4A5568">
-                      {file ? file.name : 'Upload File'}
-                    </Text>
-                  </Box>
-                </Flex>
-              </Stack>
-            </Box>
+                    <span>{option}</span>
+                  </label>
+                ))}
+              </div>
+            </div>
+            <input
+              type="text"
+              placeholder="Organization Name"
+              value={formData.department}
+              onChange={(e) =>
+                setFormData((prev: any) => ({ ...prev, department: e.target.value }))
+              }
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+            />
+            <input
+              type="text"
+              placeholder="Principal Investigator"
+              value={formData.pi}
+              onChange={(e) =>
+                setFormData((prev: any) => ({ ...prev, pi: e.target.value }))
+              }
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+            />
+            <input
+              type="text"
+              placeholder="Chartstring"
+              value={formData.chartstring}
+              onChange={(e) =>
+                setFormData((prev: any) => ({ ...prev, chartstring: e.target.value }))
+              }
+              className="w-full p-3 border border-gray-300 rounded-lg focus:outline-none focus:ring-2 focus:ring-[#002676] h-12"
+            />
 
+            {/* Separator */}
+            <div className="flex items-center gap-3 my-6">
+              <div className="flex-1 border-t border-gray-300"></div>
+              <span className="text-gray-600 px-4">OR</span>
+              <div className="flex-1 border-t border-gray-300"></div>
+            </div>
 
-          </VStack>
-        </Box>
-      </Container>
-    </Box>
+            {/* Attach a PO */}
+            <div className="flex items-start gap-8">
+              <div className="flex-1">
+                <h3 className="text-xl font-bold text-gray-800 mb-1">Attach a PO</h3>
+                <p className="text-sm text-gray-600 italic">
+                  lorem ipsum dolor set amet.
+                </p>
+              </div>
+              <label
+                htmlFor="poFile"
+                className="flex flex-col items-center justify-center border-2 border-dashed border-[#002676] rounded-lg p-8 cursor-pointer hover:border-[#001a5c] transition w-64"
+                onDragOver={handleDragOver}
+                onDragLeave={handleDragLeave}
+                onDrop={handleDrop}
+              >
+                <input
+                  id="poFile"
+                  type="file"
+                  onChange={handleFileChange}
+                  className="hidden"
+                  accept=".pdf,.doc,.docx"
+                />
+                <svg
+                  className="w-8 h-8 text-gray-400 mb-2"
+                  fill="none"
+                  stroke="currentColor"
+                  viewBox="0 0 24 24"
+                >
+                  <path
+                    strokeLinecap="round"
+                    strokeLinejoin="round"
+                    strokeWidth={2}
+                    d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+                  />
+                </svg>
+                <span className="text-gray-500 text-sm">Upload File</span>
+                {file && (
+                  <span className="mt-2 text-xs text-gray-700 text-center">
+                    {file.name}
+                  </span>
+                )}
+              </label>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
   );
 }

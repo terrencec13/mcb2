@@ -1,5 +1,5 @@
 'use client'
-import { useState, useEffect } from 'react'
+import { useState } from 'react'
 import { AiOutlineCloudUpload } from 'react-icons/ai'
 import * as XLSX from 'xlsx'
 
@@ -11,7 +11,435 @@ export type SampleRow = {
   specialInstruction: string
 }
 
+// New type for Sanger-specific sample rows
+type SangerSampleRow = {
+  no: string
+  name: string
+  notes: string
+  tubeType: string
+}
+
 export default function SampleDetails({ formData, setFormData }: any) {
+  const isSanger = formData.sampleTypeStep1 === "Sanger";
+
+  // If Sanger, render the new design
+  if (isSanger) {
+    return <SangerSampleDetails formData={formData} setFormData={setFormData} />;
+  }
+
+  // Otherwise, render the existing design
+  return <OriginalSampleDetails formData={formData} setFormData={setFormData} />;
+}
+
+// New Sanger-specific component
+function SangerSampleDetails({ formData, setFormData }: any) {
+  const [sangerSamples, setSangerSamples] = useState<SangerSampleRow[]>([
+    { no: "1", name: "", notes: "", tubeType: "" },
+    { no: "2", name: "", notes: "", tubeType: "" },
+    { no: "3", name: "", notes: "", tubeType: "" },
+  ]);
+  
+  const [dnaDataFile, setDnaDataFile] = useState<File | null>(null);
+  const [dnaType, setDnaType] = useState("");
+  const [dnaTypeSingle, setDnaTypeSingle] = useState("");
+  const [dnaConcentration, setDnaConcentration] = useState("");
+  const [solvent, setSolvent] = useState("");
+  const [primerIncluded, setPrimerIncluded] = useState("");
+  const [primerDetails, setPrimerDetails] = useState("");
+  const [plateNameFull, setPlateNameFull] = useState("");
+  const [dnaTypeFull, setDnaTypeFull] = useState("");
+  const [plateNameLarge, setPlateNameLarge] = useState("");
+  const [highGCContent, setHighGCContent] = useState("");
+
+  const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+    setDnaDataFile(file);
+    // Handle file parsing if needed
+  };
+
+  const addSampleRow = () => {
+    setSangerSamples((prev) => [
+      ...prev,
+      { no: String(prev.length + 1), name: "", notes: "", tubeType: "" },
+    ]);
+  };
+
+  const deleteSampleRow = (index: number) => {
+    setSangerSamples((prev) => {
+      const updated = prev.filter((_, i) => i !== index);
+      return updated.map((sample, i) => ({ ...sample, no: String(i + 1) }));
+    });
+  };
+
+  const handleSampleChange = (
+    index: number,
+    field: keyof SangerSampleRow,
+    value: string
+  ) => {
+    setSangerSamples((prev) => {
+      const updated = [...prev];
+      updated[index][field] = value;
+      return updated;
+    });
+  };
+
+  const syncToFormData = () => {
+    setFormData((prev: any) => ({
+      ...prev,
+      sangerSamples,
+      dnaType,
+      dnaTypeSingle,
+      dnaConcentration,
+      solvent,
+      primerIncluded,
+      primerDetails,
+      plateNameFull,
+      dnaTypeFull,
+      plateNameLarge,
+      highGCContent,
+    }));
+  };
+
+  return (
+    <div className="max-w-5xl mx-auto p-8" onBlur={syncToFormData}>
+      {/* Upload a DNA Data Table */}
+      <section className="mb-8 flex items-start gap-8">
+        <div className="flex-1">
+          <h2 className="text-xl font-semibold mb-2">Upload a DNA Data Table</h2>
+          <p className="text-sm text-gray-600">
+            Only upload .csv, .xls, .xlsx, and .pdf files.
+          </p>
+        </div>
+        <label
+          htmlFor="dnaDataFile"
+          className="flex flex-col items-center justify-center border-2 border-dashed border-[#002676] rounded-lg p-8 cursor-pointer hover:border-[#001a5c] transition w-64"
+        >
+          <input
+            id="dnaDataFile"
+            type="file"
+            accept=".csv,.xls,.xlsx,.pdf"
+            className="hidden"
+            onChange={handleFileChange}
+          />
+          <svg
+            className="w-8 h-8 text-gray-400 mb-2"
+            fill="none"
+            stroke="currentColor"
+            viewBox="0 0 24 24"
+          >
+            <path
+              strokeLinecap="round"
+              strokeLinejoin="round"
+              strokeWidth={2}
+              d="M7 16a4 4 0 01-.88-7.903A5 5 0 1115.9 6L16 6a5 5 0 011 9.9M15 13l-3-3m0 0l-3 3m3-3v12"
+            />
+          </svg>
+          <span className="text-gray-500 text-sm">Upload File</span>
+          {dnaDataFile && (
+            <span className="mt-2 text-xs text-gray-700 text-center">
+              Selected: {dnaDataFile.name}
+            </span>
+          )}
+        </label>
+      </section>
+
+      {/* Sample Information */}
+      <section>
+        <h2 className="text-xl font-semibold mb-2">Sample Information</h2>
+        <p className="text-sm text-gray-600 mb-6">
+          Manually input sample information.
+        </p>
+
+        {/* Select a DNA Type */}
+        <div className="mb-6">
+          <label className="block text-sm font-medium mb-3">Select a DNA Type:</label>
+          <div className="flex gap-4">
+            {["Plasmid", "PCR Product", "Genomic DNA"].map((type) => (
+              <label
+                key={type}
+                className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition"
+              >
+                <input
+                  type="radio"
+                  name="dnaType"
+                  value={type}
+                  checked={dnaType === type}
+                  onChange={(e) => setDnaType(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <span>{type}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* Sample Details Table */}
+        <div className="mb-6">
+          <div className="overflow-x-auto">
+            <table className="w-full text-left border border-gray-200">
+              <thead className="bg-[#002676] text-white">
+                <tr>
+                  <th className="px-4 py-2 border-r">No.</th>
+                  <th className="px-4 py-2 border-r">Name</th>
+                  <th className="px-4 py-2 border-r">Notes</th>
+                  <th className="px-4 py-2">Tube Type</th>
+                </tr>
+              </thead>
+              <tbody>
+                {sangerSamples.map((sample, index) => (
+                  <tr key={index} className="border-b border-gray-200">
+                    <td className="px-4 py-2 border-r border-gray-200">
+                      <div className="flex items-center gap-2">
+                        <button
+                          type="button"
+                          onClick={() => deleteSampleRow(index)}
+                          className="text-red-500 hover:text-red-700"
+                        >
+                          <svg
+                            className="w-4 h-4"
+                            fill="none"
+                            stroke="currentColor"
+                            viewBox="0 0 24 24"
+                          >
+                            <path
+                              strokeLinecap="round"
+                              strokeLinejoin="round"
+                              strokeWidth={2}
+                              d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
+                            />
+                          </svg>
+                        </button>
+                        <span>{sample.no}</span>
+                      </div>
+                    </td>
+                    <td className="px-4 py-2 border-r border-gray-200">
+                      <input
+                        type="text"
+                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+                        value={sample.name}
+                        onChange={(e) => handleSampleChange(index, "name", e.target.value)}
+                      />
+                    </td>
+                    <td className="px-4 py-2 border-r border-gray-200">
+                      <input
+                        type="text"
+                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+                        value={sample.notes}
+                        onChange={(e) => handleSampleChange(index, "notes", e.target.value)}
+                      />
+                    </td>
+                    <td className="px-4 py-2">
+                      <input
+                        type="text"
+                        className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+                        value={sample.tubeType}
+                        onChange={(e) => handleSampleChange(index, "tubeType", e.target.value)}
+                      />
+                    </td>
+                  </tr>
+                ))}
+              </tbody>
+            </table>
+          </div>
+          <button
+            type="button"
+            onClick={addSampleRow}
+            className="mt-4 w-full font-bold text-center bg-[#002676] text-white py-3 rounded-lg hover:bg-[#001a5c] transition"
+          >
+            +
+          </button>
+        </div>
+
+        {/* High GC Content Question */}
+        <div className="mb-6">
+          <p className="text-sm font-medium mb-3">
+            Do any of your sequences have high GC content (&gt;60%) and require the dGTP Protocol?
+          </p>
+          <div className="flex gap-4">
+            {["Yes", "No"].map((option) => (
+              <label
+                key={option}
+                className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition"
+              >
+                <input
+                  type="radio"
+                  name="highGCContent"
+                  value={option}
+                  checked={highGCContent === option}
+                  onChange={(e) => setHighGCContent(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <span>{option}</span>
+              </label>
+            ))}
+          </div>
+        </div>
+
+        {/* For Single Tube Orders */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-4">For Single Tube Orders:</h3>
+          
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">DNA Type:</label>
+            <div className="flex gap-4">
+              {["ssDNA", "dsDNA", "PCR"].map((type) => (
+                <label
+                  key={type}
+                  className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition"
+                >
+                  <input
+                    type="radio"
+                    name="dnaTypeSingle"
+                    value={type}
+                    checked={dnaTypeSingle === type}
+                    onChange={(e) => setDnaTypeSingle(e.target.value)}
+                    className="w-4 h-4"
+                  />
+                  <span>{type}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Specify DNA Concentration: <span className="text-gray-500 font-normal">(If known)</span>
+            </label>
+            <input
+              type="text"
+              placeholder="(ng/µL)"
+              value={dnaConcentration}
+              onChange={(e) => setDnaConcentration(e.target.value)}
+              className="w-48 p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">What is the solvent?</label>
+            <div className="flex gap-4">
+              {["Water", "Tris", "Other"].map((sol) => (
+                <label
+                  key={sol}
+                  className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition"
+                >
+                  <input
+                    type="radio"
+                    name="solvent"
+                    value={sol}
+                    checked={solvent === sol}
+                    onChange={(e) => setSolvent(e.target.value)}
+                    className="w-4 h-4"
+                  />
+                  <span>{sol}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Is Primer included in your submission?
+            </label>
+            <div className="flex flex-col gap-2">
+              <label className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition w-fit">
+                <input
+                  type="radio"
+                  name="primerIncluded"
+                  value="yes"
+                  checked={primerIncluded === "yes"}
+                  onChange={(e) => setPrimerIncluded(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <span>Yes</span>
+              </label>
+              <label className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition w-fit">
+                <input
+                  type="radio"
+                  name="primerIncluded"
+                  value="no"
+                  checked={primerIncluded === "no"}
+                  onChange={(e) => setPrimerIncluded(e.target.value)}
+                  className="w-4 h-4"
+                />
+                <span>No, I would like the lab to include it for me.</span>
+              </label>
+            </div>
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">
+              Primer Details: <span className="text-gray-500 font-normal">(Please specify primer name, concentration, or if included in the tube)</span>
+            </label>
+            <input
+              type="text"
+              placeholder="Type..."
+              value={primerDetails}
+              onChange={(e) => setPrimerDetails(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+            />
+          </div>
+        </div>
+
+        {/* For Full Plate Orders */}
+        <div className="mb-6">
+          <h3 className="font-semibold mb-4">For Full Plate Orders:</h3>
+          
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">Plate Name:</label>
+            <input
+              type="text"
+              placeholder="Type..."
+              value={plateNameFull}
+              onChange={(e) => setPlateNameFull(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+            />
+          </div>
+
+          <div className="mb-4">
+            <label className="block text-sm font-medium mb-2">DNA Type:</label>
+            <div className="flex gap-4">
+              {["ssDNA", "dsDNA", "PCR"].map((type) => (
+                <label
+                  key={type}
+                  className="inline-flex items-center space-x-2 cursor-pointer border border-gray-300 rounded-lg px-4 py-2 hover:border-gray-400 transition"
+                >
+                  <input
+                    type="radio"
+                    name="dnaTypeFull"
+                    value={type}
+                    checked={dnaTypeFull === type}
+                    onChange={(e) => setDnaTypeFull(e.target.value)}
+                    className="w-4 h-4"
+                  />
+                  <span>{type}</span>
+                </label>
+              ))}
+            </div>
+          </div>
+        </div>
+
+        {/* For Large Templates (>10kb) */}
+        <div>
+          <h3 className="font-semibold mb-4">For Large Templates (&gt;10kb):</h3>
+          <div>
+            <label className="block text-sm font-medium mb-2">Plate Name:</label>
+            <input
+              type="text"
+              placeholder="Type..."
+              value={plateNameLarge}
+              onChange={(e) => setPlateNameLarge(e.target.value)}
+              className="w-full p-2 border border-gray-300 rounded focus:outline-none focus:ring-2 focus:ring-[#002676]"
+            />
+          </div>
+        </div>
+      </section>
+    </div>
+  );
+}
+
+// Original component for non-Sanger sample types
+function OriginalSampleDetails({ formData, setFormData }: any) {
   // 1) Our final row structure
   type SampleRow = {
     hash: string;               // The "#" column
