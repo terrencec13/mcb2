@@ -5,7 +5,6 @@ import Navbar from "../navbar/page";
 import SpecifyOrder from '../form-specify-order/page'
 import ContactPage from "../contact-page/page";
 import SampleDetails from "../form-sample-details/page";
-import DropOff         from '../form-drop-off/page'
 import ReviewOrder     from '../form-review-order/page'
 import { createClient } from "@/utils/supabase/client";
 import { useRouter } from 'next/navigation';
@@ -68,8 +67,8 @@ const [formData, setFormData] = useState({
   chartstring: "",
 });
 
-// We have 5 total steps
-const steps = ["Specify Order", "Sample Details", "Drop‑off", "Contact", "Submit"];
+// We have 4 total steps
+const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"];
 
   // Go forward
   const handleNext = () => {
@@ -79,7 +78,7 @@ const steps = ["Specify Order", "Sample Details", "Drop‑off", "Contact", "Subm
       return;
     }
     console.log('Current formData:', formData);
-    if (currentStep < 5) { 
+    if (currentStep < 4) { 
       setCurrentStep((prev) => prev + 1);
     }
   };
@@ -107,7 +106,7 @@ const steps = ["Specify Order", "Sample Details", "Drop‑off", "Contact", "Subm
             <h2 className="text-2xl font-bold text-[#0A215C]">
               {currentStep === 1 ? "SPECIFY ORDER" : 
               currentStep === 2 ? "SAMPLE DETAILS" : 
-              currentStep === 3 ? "CONTACT" : "SUBMIT"}
+              currentStep === 3 ? "CONTACT" : "CONFIRM & SUBMIT"}
             </h2>
             <p className="text-sm text-gray-500 mt-1">
               Lorem ipsum dolor sit amet consectetur.
@@ -215,37 +214,32 @@ const steps = ["Specify Order", "Sample Details", "Drop‑off", "Contact", "Subm
             )}
 
             {currentStep === 3 && (
-              <DropOff formData={formData} setFormData={setFormData} />
-            )}
-
-            {currentStep === 4 && (
               <ContactPage
                 formData={formData}
                 setFormData={setFormData}
               />
             )}
 
-            {currentStep === 5 && (
+            {currentStep === 4 && (
               <ReviewOrder 
                 formData={formData} 
-                goBack={() => setCurrentStep(4)} 
+                goBack={() => setCurrentStep(3)} 
                 user={user}
               />
             )}
 
-            {currentStep < 5 && (
-              <div className="flex justify-end mt-4 space-x-2">
+            {currentStep < 4 && (
+              <div className="flex justify-end mt-8 space-x-3">
                 <button
                   type="button"
-                  className="w-17 py-1 text-gray-300 border border-gray-300 rounded-lg hover:bg-gray-100 text-sm"
-                  disabled={currentStep === 1}
+                  className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium"
                   onClick={handleBack}
                 >
                   {currentStep === 1 ? "Cancel" : "Back"}
                 </button>
                 <button
                   type="button"
-                  className="inter w-18 py-1 text-white rounded text-sm bg-[#1b3c84] hover:bg-[#002676]"
+                  className="px-6 py-2 text-white rounded-lg text-sm font-medium bg-[#002676] hover:bg-[#001a5c]"
                   onClick={handleNext}
                 >
                   Next

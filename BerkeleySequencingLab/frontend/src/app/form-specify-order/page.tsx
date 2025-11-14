@@ -1,7 +1,6 @@
 'use client'
 
-import React, { useState } from 'react'
-import Image from 'next/image'
+import React from 'react'
 
 const sampleOptions = [
   'Sanger',
@@ -10,72 +9,82 @@ const sampleOptions = [
   'Fragment Analysis',
   'gDNA Purification',
   'hPSC Genetic Analysis',
-  'Cell Line Authentication',
+  'Human Cell Line Authentication',
   'PCR Clean-Up Services',
   'Plasmid Prep',
+  'Other...',
 ]
 
 export default function SpecifyOrder({ formData, setFormData }: any) {
-  const [selected, setSelected] = useState<string>(formData.sampleTypeStep1 || "");
-
   return (
     <div className="w-full">
+      <div className="flex items-center gap-2 mb-6">
+        <h2 className="figtree text-2xl font-semibold text-[#3C445C]">
+          Please select a Sample Type to start a new order
+        </h2>
+        <svg
+          className="w-5 h-5 text-gray-500"
+          fill="none"
+          stroke="currentColor"
+          viewBox="0 0 24 24"
+        >
+          <path
+            strokeLinecap="round"
+            strokeLinejoin="round"
+            strokeWidth={2}
+            d="M13 16h-1v-4h-1m1-4h.01M21 12a9 9 0 11-18 0 9 9 0 0118 0z"
+          />
+        </svg>
+      </div>
 
-      <h2 className="figtree mb-4 text-3xl font-bold text-[#3C445C] ml-20">
-        Select Sample Type(s):
-      </h2>
-
-      <div className="figtree grid grid-cols-3 gap-6 justify-center ml-20 mr-20 mt-10 mb-10">
+      <div className="figtree flex flex-col gap-3">
         {sampleOptions.map((opt) => {
-          const selected = formData.sampleTypeStep1 === opt
+          const isSelected = formData.sampleTypeStep1 === opt
 
           return (
             <label
               key={opt}
               className={`
                 relative
-                aspect-square 
-                flex flex-col items-center justify-center
-                p-4 pb-10
-                bg-white border
-                ${selected ? 'border-[#002676]' : 'border-gray-300'}
-                rounded-xl shadow-sm
+                flex items-center
+                p-4
+                bg-white border-2
+                ${isSelected ? 'border-[#002676] bg-gray-50' : 'border-gray-300'}
+                rounded-lg
                 cursor-pointer transition
                 hover:border-gray-400
-   
               `}
             >
               <input
                 type="radio"
                 name="sampleTypeStep1"
                 value={opt}
-                checked={selected}
+                checked={isSelected}
                 onChange={() =>
                   setFormData((prev: any) => ({
                     ...prev,
                     sampleTypeStep1: opt,
                   }))
                 }
-                className="sr-only p-10"
+                className="sr-only"
               />
 
               <div
                 className={`
-                  absolute top-10 flex items-center justify-center
-                  w-6 h-6 rounded-full border-2
-                  ${selected
+                  flex items-center justify-center
+                  w-5 h-5 rounded-full border-2 mr-3
+                  ${isSelected
                     ? 'bg-[#002676] border-[#002676]'
                     : 'bg-white border-gray-300'}
                 `}
               >
-                {selected && <div className="w-2 h-2 bg-white rounded-full" />}
+                {isSelected && <div className="w-2 h-2 bg-white rounded-full" />}
               </div>
+              <span className="text-gray-700">{opt}</span>
             </label>
           );
-          })}
-          </div>
+        })}
+      </div>
     </div>
-  
-    
   )
 }
