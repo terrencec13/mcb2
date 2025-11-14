@@ -50,7 +50,7 @@ export async function login(formData: FormData) {
 
   // Successful login - redirect
   revalidatePath('/', 'layout')
-  redirect('/home')
+  redirect('/dashboard')
 }
 
 /**

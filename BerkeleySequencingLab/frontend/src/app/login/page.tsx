@@ -29,7 +29,7 @@ const Login = () => {
       await login(formData);
       // If we get here, redirect happened on server side
       // But just in case, redirect client-side too
-      router.push('/home');
+      router.push('/dashboard');
     } catch (err: any) {
       const errorMessage = err?.message || "An unexpected error occurred. Please try again.";
       setError(errorMessage);

@@ -3,6 +3,7 @@ import { redirect } from "next/navigation";
 import { createClient } from "@/utils/supabase/server";
 import Navbar from "../navbar/page";
 import OrdersSection from "./OrdersSection";
+import ProfileCard from "./ProfileCard";
 
 const Dashboard = async () => {
     const supabase = await createClient();
@@ -18,8 +19,6 @@ const Dashboard = async () => {
         .eq('user_id', user.id)
         .single();
 
-    const firstName = user.user_metadata?.firstName || user.user_metadata?.name?.split(' ')[0] || '';
-    const lastName = user.user_metadata?.lastName || user.user_metadata?.name?.split(' ').slice(1).join(' ') || '';
     const avatarUrl = user.user_metadata?.avatar_url || user.user_metadata?.picture || "https://via.placeholder.com/50";
 
     const ordersData = [
@@ -43,35 +42,7 @@ const Dashboard = async () => {
         <div className="bg-white text-black">
             <Navbar profilePicUrl={avatarUrl} user={user} />
             <div className="bg-white min-h-screen mx-8 p-6">
-                <div className="mb-6">
-                    <h1 className="text-3xl text-gray-800 font-bold">Welcome Back!</h1>
-                </div>
-
-                <div className="bg-gray-100 p-6 rounded-lg flex justify-between items-center mb-6 border border-gray-300">
-                    <div className="flex items-center">
-                        <img
-                            src={avatarUrl}
-                            alt="Profile"
-                            className="rounded-full mr-4 w-12 h-12 object-cover"
-                        />
-                        <div>
-                            <h2 className="text-lg text-gray-800 font-semibold">
-                                {firstName} {lastName}
-                            </h2>
-                            <p className="text-gray-600">
-                                {user.email} {orgData?.phone ? `| ${orgData.phone}` : ""}
-                            </p>
-                        </div>
-                    </div>
-                    <div className="text-right">
-                        <p className="text-gray-800">
-                            {orgData?.name || "No organization set"}
-                        </p>
-                        <p className="text-gray-600">
-                            {orgData?.phone || "No phone number set"}
-                        </p>
-                    </div>
-                </div>
+                <ProfileCard user={user} orgData={orgData} avatarUrl={avatarUrl} />
 
                 <div className="grid grid-cols-2 gap-6 mt-6">
                     <div className="text-black bg-white">
