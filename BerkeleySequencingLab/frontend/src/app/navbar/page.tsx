@@ -53,7 +53,7 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
             <div className="flex items-center gap-6">
               {/* Navigation Links */}
               <ul className="flex gap-6 font-medium items-center uppercase text-sm">
-                <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>HOME</Link></li>
+                <li className="hover:font-bold"><Link href="/hero" className="text-[#FDB515]" style={{ color: '#FDB515' }}>HOME</Link></li>
                 <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>SERVICES</Link></li>
                 <li className="hover:font-bold"><Link href="/form" className="text-[#FDB515]" style={{ color: '#FDB515' }}>ORDER FORMS</Link></li>
                 <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>PRICING</Link></li>
