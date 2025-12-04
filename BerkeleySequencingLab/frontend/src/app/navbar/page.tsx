@@ -58,7 +58,7 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
                 <li className="hover:font-bold"><Link href="/form" className="text-[#FDB515]" style={{ color: '#FDB515' }}>ORDER FORMS</Link></li>
                 <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>PRICING</Link></li>
                 <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>MORE</Link></li>
-                <li className="hover:font-bold"><Link href="/contact" className="text-[#FDB515]" style={{ color: '#FDB515' }}>CONTACT</Link></li>
+                <li className="hover:font-bold"><Link href="/contact" className="text-[#FDB515]" style={{ color: '#FDB515' }}>CONTACT US</Link></li>
               </ul>
 
               {/* Profile Picture / Notification Icon */}
