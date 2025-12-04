@@ -111,7 +111,7 @@ export default function Hero() {
 
                 {/* left column content */}
                 <div className="ml-10 relative z-10 max-w-3xl space-y-6">
-                    <h1 className="inter text-white text-5xl md:text-8xl lg:text-8xl font-semibold leading-tight">
+                    <h1 className="inter text-[#FDB515] text-5xl md:text-8xl lg:text-8xl font-semibold leading-tight">
                         Berkeley<br />
                         Sequencing Lab
                     </h1>
