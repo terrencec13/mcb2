@@ -1,7 +1,8 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import Navbar from "../navbar/page";
+import { createClient } from '@/utils/supabase/client';
 
 const ContactPage = () => {
   const [formData, setFormData] = useState({
@@ -12,6 +13,20 @@ const ContactPage = () => {
   });
 
   const [submitted, setSubmitted] = useState(false);
+  const [user, setUser] = useState<any>(null);
+  const [loading, setLoading] = useState(true);
+  const supabase = createClient();
+
+  useEffect(() => {
+    const fetchUser = async () => {
+      const { data, error } = await supabase.auth.getUser();
+      if (data?.user) {
+        setUser(data.user);
+      }
+      setLoading(false);
+    };
+    fetchUser();
+  }, []);
 
   const handleChange = (
     e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement | HTMLSelectElement>
@@ -28,9 +43,11 @@ const ContactPage = () => {
     setSubmitted(true);
   };
 
+  if (loading) return null;
+
   return (
     <>
-      <Navbar profilePicUrl={""} />
+      <Navbar profilePicUrl={user?.user_metadata?.avatar_url || user?.user_metadata?.picture || ""} user={user} />
       <div className="flex min-h-screen">
         
 
