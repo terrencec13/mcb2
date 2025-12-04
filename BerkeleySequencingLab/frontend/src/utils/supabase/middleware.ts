@@ -24,6 +24,9 @@ export async function updateSession(request: NextRequest) {
           )
         },
       },
+      cookieOptions: {
+        secure: process.env.NODE_ENV === 'production',
+      },
     }
   )
 

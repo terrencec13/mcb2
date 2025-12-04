@@ -118,7 +118,7 @@ export default function Hero() {
                     <div className="flex items-center space-x-6">
                         <Link
                             href="/form"
-                            className="inline-block bg-yellow-400 hover:bg-yellow-500 text-black font-semibold px-8 py-3 rounded-md transition whitespace-nowrap"
+                            className="inline-block bg-[#FDB515] hover:bg-[#e6a013] text-[#003262] font-semibold px-8 py-3 rounded-md transition whitespace-nowrap"
                         >
                             Order Samples
                         </Link>
@@ -310,7 +310,7 @@ export default function Hero() {
                             <button
                                 type="submit"
                                 disabled={isSubmitting}
-                                className="w-full bg-black border-gray-300 text-white py-2 rounded-md hover:bg-gray-800 text-sm disabled:bg-gray-500 disabled:cursor-not-allowed"
+                                className="w-full bg-[#003262] border-[#003262] text-white py-2 rounded-md hover:bg-[#00204a] text-sm disabled:bg-gray-500 disabled:cursor-not-allowed"
                             >
                                 {isSubmitting ? "Sending..." : "Send"}
                             </button>

@@ -144,11 +144,11 @@ export default function ProfileCard({ user, orgData, avatarUrl }: ProfileCardPro
   return (
     <>
       <div className="mb-6 flex justify-between items-start">
-        <h1 className="text-3xl text-gray-800 font-bold">Welcome Back!</h1>
+        <h1 className="text-3xl text-[#003262] font-bold">Welcome Back!</h1>
         {!isEditing && (
           <button
             onClick={handleEdit}
-            className="flex items-center gap-2 px-4 py-2 border border-[#002676] rounded-lg text-[#002676] hover:bg-[#002676] hover:text-white transition-colors"
+            className="flex items-center gap-2 px-4 py-2 border border-[#003262] rounded-lg text-[#003262] hover:bg-[#003262] hover:text-white transition-colors"
           >
             <span>Edit</span>
             <svg
@@ -168,7 +168,7 @@ export default function ProfileCard({ user, orgData, avatarUrl }: ProfileCardPro
         )}
       </div>
 
-      <div className="bg-gray-100 p-6 rounded-lg border border-gray-300">
+      <div className="bg-white p-6 rounded-lg border border-[#003262]">
         <div className="flex items-start gap-6">
           {/* Left Column: Profile Picture, Name, Email, Phone */}
           <div className="flex items-start gap-4 flex-1">
@@ -178,7 +178,7 @@ export default function ProfileCard({ user, orgData, avatarUrl }: ProfileCardPro
               className="rounded-full w-20 h-20 object-cover flex-shrink-0"
             />
             <div className="flex-1">
-              <h2 className="text-xl font-bold text-gray-800 mb-1">
+              <h2 className="text-xl font-bold text-[#003262] mb-1">
                 {firstName} {lastName}
               </h2>
               <div className="flex items-center gap-2 text-gray-600 text-sm">
@@ -283,7 +283,7 @@ export default function ProfileCard({ user, orgData, avatarUrl }: ProfileCardPro
             <button
               type="button"
               onClick={handleSave}
-              className="px-4 py-2 bg-[#002676] text-white rounded-lg hover:bg-[#001a5c] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
+              className="px-4 py-2 bg-[#003262] text-white rounded-lg hover:bg-[#00204a] transition-colors disabled:opacity-50 disabled:cursor-not-allowed"
               disabled={loading}
             >
               {loading ? 'Saving...' : 'Save'}

@@ -373,7 +373,7 @@ const Auth = () => {
 
           <button 
             type="submit" 
-            className="w-full p-3 bg-gray-900 text-white rounded text-lg hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors" 
+            className="w-full p-3 bg-[#003262] text-white rounded text-lg hover:bg-[#00204a] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors" 
             disabled={loading}
           >
             {loading ? 'Creating Account...' : 'SIGN UP'}
@@ -391,14 +391,14 @@ const Auth = () => {
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-md py-2 px-4 text-gray-700 hover:bg-gray-50"
+          className="w-full flex items-center justify-center gap-2 bg-white border border-[#003262] rounded-md py-2 px-4 text-[#003262] hover:bg-[#FDB515] hover:text-[#003262]"
         >
           <FcGoogle size={20} />
           Sign up with Google
         </button>
         
         <p className="mt-4 text-gray-300 text-center text-sm">
-          Already have an account? <Link href="/login" className="text-sm underline text-gray-900">Log In</Link>
+          Already have an account? <Link href="/login" className="text-sm underline text-[#003262]">Log In</Link>
         </p>
       </div>
     </div>

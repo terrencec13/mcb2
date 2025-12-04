@@ -36,7 +36,7 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
   if (user) {
     return (
       <>
-        <nav className="fixed inset-x-0 top-0 z-50 w-full bg-[#002676] px-4 transition-all duration-300">
+        <nav className="fixed inset-x-0 top-0 z-50 w-full bg-[#003262] px-4 transition-all duration-300">
           <div className="mx-auto flex max-w-8xl items-center justify-between py-3">
             {/* Logo */}
             <Link href="/dashboard" className="shrink-0">
@@ -52,19 +52,19 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
             {/* Navigation Links and Profile Picture grouped together on the right */}
             <div className="flex items-center gap-6">
               {/* Navigation Links */}
-              <ul className="flex gap-6 text-white font-medium items-center uppercase text-sm">
-                <li className="hover:font-bold"><Link href="/dashboard">HOME</Link></li>
-                <li className="hover:font-bold"><Link href="/dashboard">SERVICES</Link></li>
-                <li className="hover:font-bold"><Link href="/form">ORDER FORMS</Link></li>
-                <li className="hover:font-bold"><Link href="/dashboard">PRICING</Link></li>
-                <li className="hover:font-bold"><Link href="/dashboard">MORE</Link></li>
-                <li className="hover:font-bold"><Link href="/contact">CONTACT</Link></li>
+              <ul className="flex gap-6 font-medium items-center uppercase text-sm">
+                <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>HOME</Link></li>
+                <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>SERVICES</Link></li>
+                <li className="hover:font-bold"><Link href="/form" className="text-[#FDB515]" style={{ color: '#FDB515' }}>ORDER FORMS</Link></li>
+                <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>PRICING</Link></li>
+                <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>MORE</Link></li>
+                <li className="hover:font-bold"><Link href="/contact" className="text-[#FDB515]" style={{ color: '#FDB515' }}>CONTACT</Link></li>
               </ul>
 
               {/* Profile Picture / Notification Icon */}
               <div className="relative shrink-0">
                 <Link href="/profile">
-                  <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-gray-100 transition overflow-hidden border-2 border-white">
+                  <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-[#FDB515] transition overflow-hidden border-2 border-white">
                     {profilePicUrl || user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
                       <Image
                         src={profilePicUrl || user?.user_metadata?.avatar_url || user?.user_metadata?.picture || ""}
@@ -74,11 +74,11 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
                         className="rounded-full object-cover w-full h-full"
                       />
                     ) : (
-                      <svg className="w-6 h-6 text-gray-400" fill="currentColor" viewBox="0 0 24 24">
+                      <svg className="w-6 h-6 text-[#003262]" fill="currentColor" viewBox="0 0 24 24">
                         <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
                       </svg>
                     )}
-                    <span className="absolute top-0 right-0 w-3 h-3 bg-red-500 rounded-full border-2 border-white"></span>
+                    <span className="absolute top-0 right-0 w-3 h-3 bg-[#FDB515] rounded-full border-2 border-white"></span>
                   </button>
                 </Link>
               </div>
@@ -121,20 +121,20 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
         </Link>
 
         <ul
-          className={`flex gap-8 text-white font-medium items-center
+          className={`flex gap-8 font-medium items-center
             ${scrolled ? 'opacity-0 pointer-events-none -translate-y-1' :
               'opacity-100 translate-y-0'}
           `}
         >
-          <li className="hover:font-bold"><Link href="/hero">HOME</Link></li>
-          <li className="hover:font-bold"><Link href="/form">ORDER&nbsp;FORMS</Link></li>
-          <li className="hover:font-bold"><Link href="/admin-dash">ADMIN DASHBOARD</Link></li>
-          <li className="hover:font-bold"><Link href="/plate-selection">PLATE SELECTION</Link></li>
-          <li className="hover:font-bold"><Link href="/contact">FEEDBACK</Link></li>
+          <li className="hover:font-bold"><Link href="/hero" className="text-[#FDB515]" style={{ color: '#FDB515' }}>HOME</Link></li>
+          <li className="hover:font-bold"><Link href="/form" className="text-[#FDB515]" style={{ color: '#FDB515' }}>ORDER&nbsp;FORMS</Link></li>
+          <li className="hover:font-bold"><Link href="/admin-dash" className="text-[#FDB515]" style={{ color: '#FDB515' }}>ADMIN DASHBOARD</Link></li>
+          <li className="hover:font-bold"><Link href="/plate-selection" className="text-[#FDB515]" style={{ color: '#FDB515' }}>PLATE SELECTION</Link></li>
+          <li className="hover:font-bold"><Link href="/contact" className="text-[#FDB515]" style={{ color: '#FDB515' }}>FEEDBACK</Link></li>
 
           {/* Show Sign In button */}
           <Link href="/login">
-            <button className="px-5 py-2 border border-white text-white rounded-xl text-sm hover:bg-[#485486a2] transition">
+            <button className="px-5 py-2 border border-white text-white rounded-xl text-sm hover:bg-[#FDB515] hover:text-[#003262] transition">
               SIGN IN
             </button>
           </Link>

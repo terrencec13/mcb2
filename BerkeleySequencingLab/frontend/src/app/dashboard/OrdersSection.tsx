@@ -17,11 +17,11 @@ const OrdersSection = ({ orders }: { orders: any[] }) => {
     });
 
     return (
-        <div className="bg-white p-6 rounded-lg border border-gray-300 mb-6 text-gray-800">
+        <div className="bg-white p-6 rounded-lg border border-[#003262] mb-6 text-[#003262]">
             <div className="flex justify-between items-center">
                 <h3 className="text-lg font-semibold">Past Orders</h3>
                 <select
-                    className="text-sm border border-gray-300 rounded-md p-1 text-gray-800 bg-white"
+                    className="text-sm border border-[#003262] rounded-md p-1 text-[#003262] bg-white"
                     value={sortOption}
                     onChange={(e) => setSortOption(e.target.value)}
                 >
@@ -35,9 +35,9 @@ const OrdersSection = ({ orders }: { orders: any[] }) => {
                 {sortedOrders.map((order, index) => (
                     <div key={index} className="flex justify-between items-center border-b border-gray-200 py-2">
                         <div className="flex items-center">
-                            <div className="w-10 h-10 bg-gray-300 rounded-md mr-4"></div>
+                            <div className="w-10 h-10 bg-[#FDB515] rounded-md mr-4"></div>
                             <div>
-                                <p className="font-medium text-gray-900">{order.name}</p>
+                                <p className="font-medium text-[#003262]">{order.name}</p>
                                 <p className="text-gray-600 text-sm">
                                     {order.type} Sample Type · {order.date} · {order.time}
                                 </p>
@@ -54,7 +54,7 @@ const OrdersSection = ({ orders }: { orders: any[] }) => {
             </div>
 
             <div className="flex justify-end mt-4">
-                <button className="px-4 py-2 bg-gray-200 text-gray-800 rounded-lg flex items-center">
+                <button className="px-4 py-2 bg-[#FDB515] text-[#003262] rounded-lg flex items-center hover:bg-[#e6a013] transition-colors">
                     Download Order History
                 </button>
             </div>

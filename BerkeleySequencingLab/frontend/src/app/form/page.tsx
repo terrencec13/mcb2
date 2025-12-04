@@ -103,7 +103,7 @@ const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"]
         <div className="w-[300px] mt-10 bg-white  rounded-xl shadow-lg px-8 py-8 ml-10 flex flex-col h-full">
           {/* Title & Subtitle */}
           <div className="mb-6">
-            <h2 className="text-2xl font-bold text-[#0A215C]">
+            <h2 className="text-2xl font-bold text-[#003262]">
               {currentStep === 1 ? "SPECIFY ORDER" : 
               currentStep === 2 ? "SAMPLE DETAILS" : 
               currentStep === 3 ? "CONTACT" : "CONFIRM & SUBMIT"}
@@ -114,9 +114,9 @@ const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"]
           </div>
 
         {/* YELLOW INFO BOX */}
-        <div className="flex items-start gap-3 bg-[#FFF5DB] border border-[#FDC844] rounded-lg mb-8 p-4">
+        <div className="flex items-start gap-3 bg-[#FFF5DB] border border-[#FDB515] rounded-lg mb-8 p-4">
             {/* Exclamation Icon */}
-            <div className="ml-2 mr-1 flex font-[var(--font-inter)] items-center justify-center w-11 h-5 rounded-full bg-[#FFF5DB] border-2 border-black text-black text-sm">
+            <div className="ml-2 mr-1 flex font-[var(--font-inter)] items-center justify-center w-11 h-5 rounded-full bg-[#FFF5DB] border-2 border-[#003262] text-[#003262] text-sm">
               !
             </div>
 
@@ -155,8 +155,8 @@ const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"]
                     <div
                       className={`w-6 h-6 rounded-full border-2 flex items-center justify-center
                         ${isActive
-                          ? "border-yellow-500 bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.5)]"
-                          : isCompleted ? "border-yellow-500 bg-yellow-500"
+                          ? "border-[#FDB515] bg-[#FDB515] shadow-[0_0_8px_rgba(253,181,21,0.5)]"
+                          : isCompleted ? "border-[#FDB515] bg-[#FDB515]"
                             : "border-gray-300 bg-white"
                         }`}
                     >
@@ -182,7 +182,7 @@ const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"]
                     {/* Connector above (if not first step) */}
                     {index > 0 && (
                       <div
-                        className={`absolute left-[50%] bottom-6 w-0.5 h-6 ${index <= currentStep - 1 ? "bg-yellow-500" : "bg-gray-300"
+                        className={`absolute left-[50%] bottom-6 w-0.5 h-6 ${index <= currentStep - 1 ? "bg-[#FDB515]" : "bg-gray-300"
                           }`}
                       ></div>
                     )}
@@ -190,7 +190,7 @@ const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"]
                     {/* Connector below (if not last step) */}
                     {index < steps.length - 1 && (
                       <div
-                        className={`absolute left-[50%] top-6 w-0.5 h-6 ${index < currentStep - 1 ? "bg-yellow-500" : "bg-gray-300"
+                        className={`absolute left-[50%] top-6 w-0.5 h-6 ${index < currentStep - 1 ? "bg-[#FDB515]" : "bg-gray-300"
                           }`}
                       ></div>
                     )}
@@ -232,7 +232,7 @@ const steps = ["Specify Order", "Sample Details", "Contact", "Confirm & Submit"]
               <div className="flex justify-end mt-8 space-x-3">
                 <button
                   type="button"
-                  className="px-6 py-2 text-gray-600 border border-gray-300 rounded-lg hover:bg-gray-50 text-sm font-medium"
+                  className="px-6 py-2 text-[#003262] border border-[#003262] rounded-lg hover:bg-[#FDB515] hover:text-[#003262] text-sm font-medium"
                   onClick={handleBack}
                 >
                   {currentStep === 1 ? "Cancel" : "Back"}

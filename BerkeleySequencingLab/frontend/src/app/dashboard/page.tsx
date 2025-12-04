@@ -47,17 +47,17 @@ const Dashboard = async () => {
                 <div className="grid grid-cols-2 gap-6 mt-6">
                     <div className="text-black bg-white">
                         <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl text-gray-800 font-semibold">
+                            <h3 className="text-xl text-[#003262] font-semibold">
                                 Latest Updates
                             </h3>
-                            <button className="text-gray-700">View All</button>
+                            <button className="text-[#003262] hover:text-[#FDB515]">View All</button>
                         </div>
                         <div className="space-y-4 p-6 rounded-lg border border-gray-300 mb-4">
                             {["Order Shipped", "Under Review", "Order Shipped"].map((update, index) => (
                                 <div key={index} className="flex items-center py-2">
-                                    <div className="w-10 h-10 bg-gray-300 rounded-md mr-4"></div>
+                                    <div className="w-10 h-10 bg-[#FDB515] rounded-md mr-4"></div>
                                     <div>
-                                        <p className="font-medium text-gray-800">{update}</p>
+                                        <p className="font-medium text-[#003262]">{update}</p>
                                         <p className="text-gray-500 text-sm">
                                             March 16 · 12:45 PM
                                         </p>
@@ -69,17 +69,17 @@ const Dashboard = async () => {
 
                     <div className="text-black bg-white">
                         <div className="flex justify-between items-center mb-4">
-                            <h3 className="text-xl text-gray-800 font-semibold">
+                            <h3 className="text-xl text-[#003262] font-semibold">
                                 Pending Orders
                             </h3>
-                            <button className="text-gray-700">View All</button>
+                            <button className="text-[#003262] hover:text-[#FDB515]">View All</button>
                         </div>
                         <div className="space-y-4 p-6 rounded-lg border border-gray-300 mb-4">
                             {["Order Shipped", "Under Review", "Order Shipped"].map((update, index) => (
                                 <div key={index} className="flex items-center py-2">
-                                    <div className="w-10 h-10 bg-gray-300 rounded-md mr-4"></div>
+                                    <div className="w-10 h-10 bg-[#FDB515] rounded-md mr-4"></div>
                                     <div>
-                                        <p className="font-medium text-gray-800">{update}</p>
+                                        <p className="font-medium text-[#003262]">{update}</p>
                                         <p className="text-gray-500 text-sm">
                                             March 16 · 12:45 PM
                                         </p>

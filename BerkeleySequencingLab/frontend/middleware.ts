@@ -7,7 +7,13 @@ export async function middleware(req: NextRequest) {
   const res = NextResponse.next();
   
   // create supabase client for auth checking
-  const supabase = createMiddlewareClient({ req, res });
+  const supabase = createMiddlewareClient({
+    req,
+    res,
+    cookieOptions: {
+      secure: process.env.NODE_ENV === 'production',
+    },
+  });
   
   // check if user is authenticated
   const {

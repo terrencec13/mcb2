@@ -225,7 +225,7 @@ const Login = () => {
             </button>
             <button 
               type="submit" 
-              className="w-full p-3 bg-gray-900 text-white rounded text-lg hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors" 
+              className="w-full p-3 bg-[#003262] text-white rounded text-lg hover:bg-[#00204a] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors" 
               disabled={loading}
             >
               {loading ? 'Signing in...' : 'SIGN IN'}
@@ -252,13 +252,13 @@ const Login = () => {
                   setResetEmail("");
                   setError("");
                 }}
-                className="flex-1 p-3 bg-gray-200 text-gray-800 rounded text-lg hover:bg-gray-300 transition-colors"
+                className="flex-1 p-3 bg-white border border-[#003262] text-[#003262] rounded text-lg hover:bg-[#FDB515] hover:text-[#003262] transition-colors"
               >
                 Cancel
               </button>
               <button 
                 type="submit" 
-                className="flex-1 p-3 bg-gray-900 text-white rounded text-lg hover:bg-gray-800 disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors" 
+                className="flex-1 p-3 bg-[#003262] text-white rounded text-lg hover:bg-[#00204a] disabled:bg-gray-400 disabled:cursor-not-allowed transition-colors" 
                 disabled={resetLoading}
               >
                 {resetLoading ? 'Sending...' : 'Send Reset Link'}
@@ -279,14 +279,14 @@ const Login = () => {
         <button
           type="button"
           onClick={handleGoogleSignIn}
-          className="w-full flex items-center justify-center gap-2 bg-white border border-gray-300 rounded-md py-3 px-4 text-gray-700 hover:bg-gray-50 text-lg font-medium"
+          className="w-full flex items-center justify-center gap-2 bg-white border border-[#003262] rounded-md py-3 px-4 text-[#003262] hover:bg-[#FDB515] hover:text-[#003262] text-lg font-medium"
         >
           <FcGoogle size={24} />
           Sign in with Google
         </button>
         
         <p className="mt-6 text-center text-gray-600">
-          Don't have an account? <Link href="/signin" className="text-gray-900 underline not-last:font-semibold">Sign Up</Link>
+          Don't have an account? <Link href="/signin" className="text-[#003262] underline not-last:font-semibold">Sign Up</Link>
         </p>
       </div>
     </div>
