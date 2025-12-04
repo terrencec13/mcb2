@@ -54,7 +54,24 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
               {/* Navigation Links */}
               <ul className="flex gap-6 font-medium items-center uppercase text-sm">
                 <li className="hover:font-bold"><Link href="/hero" className="text-[#FDB515]" style={{ color: '#FDB515' }}>HOME</Link></li>
-                <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>SERVICES</Link></li>
+                <li className="relative group">
+                  <span className="hover:font-bold text-[#FDB515] cursor-pointer" style={{ color: '#FDB515' }}>
+                    SERVICES
+                  </span>
+                  <div className="absolute top-full left-0 mt-2 w-64 bg-[#003262] border border-[#FDB515] rounded-lg shadow-lg py-2 z-50 opacity-0 invisible group-hover:opacity-100 group-hover:visible transition-all duration-200">
+                    <Link href="/cell-line" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">CELL LINE AUTHENTICATION</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">DNA FRAGMENT ANALYSIS</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">DNA NORMALIZATION</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">DNA QUANTIFICATION</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">OPEN ACCESS INSTRUMENTS</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">PCR REACTION CLEANUP</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">PLASMID & GENOMIC DNA</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">PLASMID SEQUENCING</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">SANGER SEQUENCING</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">STEM CELL AUTHENTICATION</Link>
+                    <Link href="/dashboard" className="block px-4 py-2 text-[#FDB515] hover:bg-white hover:text-[#003262] text-sm">STOCK PRIMERS (FREE)</Link>
+                  </div>
+                </li>
                 <li className="hover:font-bold"><Link href="/form" className="text-[#FDB515]" style={{ color: '#FDB515' }}>ORDER FORMS</Link></li>
                 <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>PRICING</Link></li>
                 <li className="hover:font-bold"><Link href="/dashboard" className="text-[#FDB515]" style={{ color: '#FDB515' }}>MORE</Link></li>
