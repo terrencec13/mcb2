@@ -85,7 +85,7 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
             </div>
           </div>
         </nav>
-        <div className="h-[74px]" />
+        {!isHero && <div className="h-[74px]" />}
       </>
     );
   }
