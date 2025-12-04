@@ -126,7 +126,7 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
               'opacity-100 translate-y-0'}
           `}
         >
-          <li className="hover:font-bold"><Link href="/dashboard">HOME</Link></li>
+          <li className="hover:font-bold"><Link href="/hero">HOME</Link></li>
           <li className="hover:font-bold"><Link href="/form">ORDER&nbsp;FORMS</Link></li>
           <li className="hover:font-bold"><Link href="/admin-dash">ADMIN DASHBOARD</Link></li>
           <li className="hover:font-bold"><Link href="/plate-selection">PLATE SELECTION</Link></li>
