@@ -38,8 +38,8 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
       <>
         <nav className="fixed inset-x-0 top-0 z-50 w-full bg-[#003262] px-4 transition-all duration-300">
           <div className="mx-auto flex max-w-8xl items-center justify-between py-3">
-            {/* Logo */}
-            <Link href="/dashboard" className="shrink-0">
+            {/* Logo - Always MCB logo on the left */}
+            <Link href={isHero ? "/hero" : "/dashboard"} className="shrink-0">
               <Image
                 src="/assets/mcb_icon.png"
                 alt="MCB logo"
@@ -80,24 +80,44 @@ const Navbar = ({ profilePicUrl, user }: { profilePicUrl: string; user: any }) =
 
               {/* Profile Picture / Notification Icon */}
               <div className="relative shrink-0">
-                <Link href="/profile">
-                  <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-[#FDB515] transition overflow-hidden border-2 border-white">
-                    {profilePicUrl || user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
+                {isHero ? (
+                  <Link href="/profile" className="cursor-pointer">
+                    {(user?.user_metadata?.avatar_url || user?.user_metadata?.picture || (profilePicUrl && profilePicUrl !== "/assets/mcb_icon.png")) ? (
                       <Image
-                        src={profilePicUrl || user?.user_metadata?.avatar_url || user?.user_metadata?.picture || ""}
+                        src={user?.user_metadata?.avatar_url || user?.user_metadata?.picture || profilePicUrl || ""}
                         alt="Profile"
                         width={40}
                         height={40}
-                        className="rounded-full object-cover w-full h-full"
+                        className="rounded-full border-2 border-white object-cover hover:opacity-80 transition-opacity cursor-pointer"
                       />
                     ) : (
-                      <svg className="w-6 h-6 text-[#003262]" fill="currentColor" viewBox="0 0 24 24">
-                        <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
-                      </svg>
+                      <div className="w-10 h-10 rounded-full border-2 border-white bg-white flex items-center justify-center hover:bg-gray-100 transition cursor-pointer">
+                        <svg className="w-6 h-6 text-[#003262]" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4 1.79-4 4 1.79 4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                      </div>
                     )}
-                    <span className="absolute top-0 right-0 w-3 h-3 bg-[#FDB515] rounded-full border-2 border-white"></span>
-                  </button>
-                </Link>
+                  </Link>
+                ) : (
+                  <Link href="/profile">
+                    <button className="w-10 h-10 rounded-full bg-white flex items-center justify-center hover:bg-[#FDB515] transition overflow-hidden border-2 border-white">
+                      {profilePicUrl || user?.user_metadata?.avatar_url || user?.user_metadata?.picture ? (
+                        <Image
+                          src={profilePicUrl || user?.user_metadata?.avatar_url || user?.user_metadata?.picture || ""}
+                          alt="Profile"
+                          width={40}
+                          height={40}
+                          className="rounded-full object-cover w-full h-full"
+                        />
+                      ) : (
+                        <svg className="w-6 h-6 text-[#003262]" fill="currentColor" viewBox="0 0 24 24">
+                          <path d="M12 12c2.21 0 4-1.79 4-4s-1.79-4-4-4-4 1.79-4 4 1.79 4 4 4zm0 2c-2.67 0-8 1.34-8 4v2h16v-2c0-2.66-5.33-4-8-4z" />
+                        </svg>
+                      )}
+                      <span className="absolute top-0 right-0 w-3 h-3 bg-[#FDB515] rounded-full border-2 border-white"></span>
+                    </button>
+                  </Link>
+                )}
               </div>
             </div>
           </div>
